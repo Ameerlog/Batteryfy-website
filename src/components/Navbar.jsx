@@ -1,6 +1,6 @@
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { Link } from "react-router-dom"; // Import Link for internal navigation
-import Logo from "../assets/Logo.png";
+import Logo from "../assets/Logo.webp";
 
 export default function Navbar() {
   return (

@@ -118,7 +118,7 @@
 import { useEffect } from "react";
 import { FaBolt, FaChargingStation, FaRecycle } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
-import Logo from "../assets/Logo.png";
+import Logo from "../assets/Logo.webp";
 
 const AboutUs = () => {
   const { pathname } = useLocation();

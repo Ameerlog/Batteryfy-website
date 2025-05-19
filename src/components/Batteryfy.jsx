@@ -171,8 +171,8 @@ import { MdEvStation } from "react-icons/md";
 import { TbBatteryAutomotiveFilled } from "react-icons/tb";
 import { Link } from "react-router-dom";
 // import BatteryProduct from "../assets/BatteryProducts.webp";
-// import BatteryProduct from "../assets/image7.png";
-import BatteryProduct from "../assets/2.png";
+import BatteryProduct from "../assets/image7.png";
+// import BatteryProduct from "../assets/2.png";
 import Retrofit from "../assets/Retrofit.webp";
 import ChargingStation from "../assets/chargingStation.webp";
 // import ChargingStation from "../assets/image4.png";
@@ -235,7 +235,8 @@ const Batteryfy = () => {
               to="/battery-conversion"
               className="text-blue-400 flex items-center gap-1 hover:underline"
             >
-              Learn more <FaArrowRight className="text-sm" aria-hidden="true" />
+              Batteryfy Now{" "}
+              <FaArrowRight className="text-sm" aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -278,7 +279,7 @@ const Batteryfy = () => {
               to="/ev-charging-stations"
               className="text-blue-400 flex items-center gap-1 hover:underline"
             >
-              Learn more <FaArrowRight className="text-sm" aria-hidden="true" />{" "}
+              Charge Now <FaArrowRight className="text-sm" aria-hidden="true" />{" "}
             </Link>
           </div>
         </div>
@@ -293,7 +294,7 @@ const Batteryfy = () => {
               />
             </div>
           </div>
-          <h2 className="text-xl font-bold mb-4">Battery Product Store</h2>
+          <h2 className="text-xl font-bold mb-4">Our Merchandise</h2>
           <div className="rounded-lg overflow-hidden">
             <img
               src={BatteryProduct}
@@ -321,7 +322,7 @@ const Batteryfy = () => {
               href="#products"
               className="text-blue-400 flex items-center gap-1 hover:underline"
             >
-              Learn more <FaArrowRight className="text-sm" aria-hidden="true" />
+              Shop Now <FaArrowRight className="text-sm" aria-hidden="true" />
             </a>
           </div>
         </div>

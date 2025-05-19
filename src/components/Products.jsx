@@ -282,7 +282,7 @@ const dummyProducts = [
     desc: "Rechargeable LED lamp powered by solar energy. Ideal for outdoor and indoor use.",
     image: Product1,
     variants: [
-      { type: "Incandescent Lamp", price: 200 },
+      { type: "Incandescent Lamp", price: 6000 },
       { type: "Halogen Lamp", price: 300 },
       { type: "LED Lamp", price: 500 },
       { type: "Table Lamp", price: 799 },
@@ -344,7 +344,7 @@ const dummyProducts = [
     // image: Product7,
     image: Product2,
     variants: [
-      { type: "Low-Speed E-Bikes", price: 28999 },
+      { type: "Low-Speed E-Bikes", price: 12000 },
       { type: "Hybrid E-Bikes", price: 45000 },
       { type: "City Commuter", price: 51999 },
       { type: "Mountain Terrain", price: 54999 },
@@ -367,7 +367,7 @@ const dummyProducts = [
     // image: Product9,
     image: Product3,
     variants: [
-      { type: "Commuter", price: 85000 },
+      { type: "Commuter", price: 22000 },
       { type: "SportsBike", price: 98900 },
       { type: "Cruiser", price: 125900 },
       { type: "Adventure", price: 194900 },
@@ -393,7 +393,7 @@ const dummyProducts = [
     // image: Product11,
     image: Product5,
     variants: [
-      { type: "HatchBacks", price: 1499000 },
+      { type: "HatchBacks", price: 250000 },
       { type: "Sedans", price: 1899000 },
       { type: "SUVs", price: 2259000 },
       { type: "Prime (Medium Range)", price: 4499000 },
@@ -407,7 +407,7 @@ const dummyProducts = [
     // image: Product12,
     image: Product6,
     variants: [
-      { type: "Light Commercial", price: 2699999 },
+      { type: "Light Commercial", price: 550000 },
       { type: "Heavy Commercial", price: 4699999 },
       { type: "6 Wheel", price: 6699999 },
       { type: "10 Wheel", price: 8399999 },
@@ -420,7 +420,7 @@ const dummyProducts = [
     // image: Product13,
     image: Product7,
     variants: [
-      { type: "Forklifts", price: 3999999 },
+      { type: "Forklifts", price: 750000 },
       { type: "Excavators", price: 15000000 },
       { type: "Loaders", price: 12000000 },
       { type: "Dump Trucks", price: 30000000 },
@@ -503,8 +503,8 @@ const Products = () => {
       >
         {dummyProducts.map((product, index) => (
           <SwiperSlide key={product.id} className="h-full">
-            <div className="group bg-gray-800 rounded-lg overflow-hidden flex flex-col h-1/2">
-              <div className="relative aspect-square w-full h-40 bg-green-900">
+            <div className="group bg-transparent rounded-lg overflow-hidden flex flex-col h-1/2 border border-blue-400">
+              <div className="relative aspect-square w-full h-40 bg-transparent">
                 <img
                   src={product.image}
                   alt={product.title}

@@ -366,7 +366,7 @@ const ContactUs = () => {
   const address =
     "D-Block, SHINDE COMPLEX, Neeligin Rd, New Cotton Market, Deshpande Nagar, Hubballi, Karnataka 580029";
   const email = "info@batteryfy.com";
-  const phone = "+91 080 8575 8575";
+  const phone = "080 8575 8575";
   const workingHours = "Mon-Sat: 10:00 AM - 7:00 PM";
   const establishedYear = "2025";
   const website = "https://www.batteryfy.com";

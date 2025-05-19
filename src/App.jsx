@@ -42,6 +42,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
+import Login from "./components/Login";
 
 // Lazy load components
 const HomePage = lazy(() => import("./Pages/HomePage"));
@@ -56,6 +57,7 @@ const SOSEmergencySystem = lazy(() =>
   import("./components/SOSEmergencySystem")
 );
 // const RetrofitFrom = lazy(() => import("./components/RetrofitFrom"));
+const PrivateRoute = lazy(() => import("./components/PrivateRoute"));
 
 const App = () => {
   return (
@@ -65,14 +67,36 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           {/* <Route path="/retrofit" element={<RetrofitFrom />} /> */}
-          <Route path="/battery-conversion" element={<Retrify />} />
-          <Route path="/ev-charging-stations" element={<BookStations />} />
+          <Route
+            path="/battery-conversion"
+            element={
+              <PrivateRoute>
+                <Retrify />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ev-charging-stations"
+            element={
+              <PrivateRoute>
+                <BookStations />
+              </PrivateRoute>
+            }
+          />
           <Route path="/faqs" element={<FAQSection />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsConditions />} />
           <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/sos-emergency" element={<SOSEmergencySystem />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/sos-emergency"
+            element={
+              <PrivateRoute>
+                <SOSEmergencySystem />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Suspense>
       <Footer />

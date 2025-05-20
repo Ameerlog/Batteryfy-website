@@ -60,7 +60,7 @@ const FloatingButtons = () => {
   return (
     <>
       {/* Left Floating SOS Icon */}
-      <div className="fixed left-6 bottom-8 z-50 flex flex-col items-center space-y-2">
+      <div className="fixed left-4 bottom-8 z-50 flex flex-col items-center space-y-2">
         <Link to="/sos-emergency" aria-label="Go to SOS Emergency page">
           <button
             className="relative rounded-full p-4 bg-gradient-to-br from-red-500 to-red-700 text-white font-bold flex flex-col items-center justify-center shadow-2xl transform transition-transform duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-red-400"

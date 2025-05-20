@@ -66,7 +66,7 @@ const FloatingButtons = () => {
             className="relative rounded-full p-4 bg-gradient-to-br from-red-500 to-red-700 text-white font-bold flex flex-col items-center justify-center shadow-2xl transform transition-transform duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-red-400"
             style={{ boxShadow: "0 10px 25px -5px rgba(239, 68, 68, 0.5)" }}
           >
-            <TbSos size={40} className="font-medium" aria-hidden="true" />{" "}
+            <TbSos size={32} className="font-medium" aria-hidden="true" />{" "}
             <span className="absolute inset-0 rounded-full bg-red-600 animate-ping opacity-30"></span>
             <span
               className="absolute -inset-2 rounded-full border-2 border-red-500 animate-ping opacity-40"

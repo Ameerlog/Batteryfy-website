@@ -42,7 +42,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
-import Login from "./components/Login";
+// import Login from "./components/Login";
 
 // Lazy load components
 const HomePage = lazy(() => import("./Pages/HomePage"));
@@ -57,7 +57,7 @@ const SOSEmergencySystem = lazy(() =>
   import("./components/SOSEmergencySystem")
 );
 // const RetrofitFrom = lazy(() => import("./components/RetrofitFrom"));
-const PrivateRoute = lazy(() => import("./components/PrivateRoute"));
+// const PrivateRoute = lazy(() => import("./components/PrivateRoute"));
 
 const App = () => {
   return (
@@ -70,17 +70,17 @@ const App = () => {
           <Route
             path="/battery-conversion"
             element={
-              <PrivateRoute>
-                <Retrify />
-              </PrivateRoute>
+              <Retrify />
+              // <PrivateRoute>
+              // </PrivateRoute>
             }
           />
           <Route
             path="/ev-charging-stations"
             element={
-              <PrivateRoute>
-                <BookStations />
-              </PrivateRoute>
+              <BookStations />
+              // <PrivateRoute>
+              // </PrivateRoute>
             }
           />
           <Route path="/faqs" element={<FAQSection />} />
@@ -88,13 +88,13 @@ const App = () => {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsConditions />} />
           <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/login" element={<Login />} />
+          {/* <Route path="/login" element={<Login />} /> */}
           <Route
             path="/sos-emergency"
             element={
-              <PrivateRoute>
-                <SOSEmergencySystem />
-              </PrivateRoute>
+              <SOSEmergencySystem />
+              // <PrivateRoute>
+              // </PrivateRoute>
             }
           />
         </Routes>

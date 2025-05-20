@@ -449,7 +449,7 @@
 export default HeroSection; */
 }
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import image1 from "../assets/Bicycle.png";
 // import image2 from "../assets/scooter.png";
 // import image4 from "../assets/cars.png";
@@ -467,41 +467,48 @@ import image5 from "../assets/6.png";
 import image6 from "../assets/8.png";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const cardData = [
     {
       title: "BiCycles",
       description: "Convert manual bicycles to electric",
       imageUrl: image1,
+      vehicleType: "Bicycle",
       points: ["Batteryfy manual bicycles", "Charge bicycles"],
     },
     {
       title: "Motorcycles",
       description: "Retrofit petrol two-wheelers to EV",
       imageUrl: image2,
+      vehicleType: "Two-Wheeler",
       points: ["Batteryfy manual 2 Wheelers", "Charge 2 Wheelers"],
     },
     {
       title: "TriCycles",
       description: "Aftermarket EV retrofitting for cars",
       imageUrl: image3,
+      vehicleType: "Three-Wheeler",
       points: ["Batteryfy manual 3 Wheelers", "Charge 3 Wheelers"],
     },
     {
       title: "Cars",
       description: "Convert trucks and heavy vehicles",
       imageUrl: image4,
+      vehicleType: "Four-Wheeler",
       points: ["Batteryfy manual 4 Wheelers", "Charge 4 Wheelers"],
     },
     {
       title: "Commercial vehicles",
       description: "Aftermarket EV retrofitting for cars",
       imageUrl: image5,
+      vehicleType: "Six-Wheeler / Commercial Vehicle",
       points: ["Batteryfy manual 6 Wheelers", "Charge 6 Wheelers"],
     },
     {
       title: "Heavy Duty Machineries",
       description: "Convert trucks and heavy vehicles",
       imageUrl: image6,
+      vehicleType: "Heavy-Duty Machinery",
       points: [
         "Batteryfy manual Heavy Duty Vehicles",
         "Charge Heavy Duty Vehicles",
@@ -541,11 +548,18 @@ const HeroSection = () => {
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 flex justify-center items-end pb-4 gap-12 bg-gradient-to-t from-black/60 to-transparent">
-                <Link to="/battery-conversion">
-                  <button className="border-2 border-blue-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:text-blue-400">
-                    Batteryfy
-                  </button>
-                </Link>
+                {/* <Link to="/battery-conversion"> */}
+                <button
+                  className="border-2 border-blue-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:text-blue-400"
+                  onClick={() =>
+                    navigate("/battery-conversion", {
+                      state: { vehicleType: card.vehicleType },
+                    })
+                  }
+                >
+                  Batteryfy
+                </button>
+                {/* </Link> */}
                 {index != 0 && (
                   <Link to="/ev-charging-stations">
                     <button className="border-2 border-green-500  text-white px-4 py-2 rounded-full text-sm font-medium hover:text-green-400">

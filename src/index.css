@@ -11,5 +11,5 @@ body {
   background-color: rgb(3 7 18);
 }
 .input {
-  @apply w-full px-4 py-2 rounded-lg border border-white/20 bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-green-400 backdrop-blur-md transition duration-200;
+  @apply w-full px-4 py-2 rounded-lg border border-white/20 bg-white/10 text-black placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-green-400 backdrop-blur-md transition duration-200;
 }

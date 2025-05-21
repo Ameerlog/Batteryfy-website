@@ -100,7 +100,7 @@ export default function BatteryBank() {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="min-h-full w-full bg-gray-950 bg-gradient-to-br from-green-400/20 via-blue-500/20 to-green-400/10 backdrop-blur-x flex items-center p-4 lg:p-6">
+    <div className="min-h-screen sm:min-h-full w-full bg-gray-950 bg-gradient-to-br from-green-400/20 via-blue-500/20 to-green-400/10 backdrop-blur-x flex items-center p-4 pt-1 pb-6 lg:p-6">
       <div className="container mx-auto max-w-6xl flex items-center justify-center">
         <div className="flex flex-col lg:flex-row items-center justify-center lg:items-start sm:gap-16 gap-0">
           {/* Image - Appears first on mobile */}

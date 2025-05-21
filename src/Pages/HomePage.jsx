@@ -7,6 +7,7 @@ const HeroSection = lazy(() => import("../components/HeroSection"));
 const Products = lazy(() => import("../components/Products"));
 const Batteryfy = lazy(() => import("../components/Batteryfy"));
 const FloatingButtons = lazy(() => import("../components/FloatingButtons"));
+const BatteryBank = lazy(() => import("../components/BatteryBank"));
 
 const HomePage = () => {
   const { pathname } = useLocation();
@@ -17,6 +18,7 @@ const HomePage = () => {
   return (
     <div className="relative">
       <Suspense fallback={<Loading />}>
+        <BatteryBank />
         <HeroSection />
         <Products />
         <Batteryfy />

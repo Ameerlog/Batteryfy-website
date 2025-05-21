@@ -517,7 +517,7 @@ const HeroSection = () => {
   ];
   return (
     <section
-      className="min-h-screen bg-gray-950 p-4 sm:p-8 bg-gradient-to-br from-green-400/20 via-blue-500/20 to-green-400/10 backdrop-blur-xl"
+      className="min-h-screen bg-gray-950 p-4 sm:p-8 sm:pt-2 bg-gradient-to-br from-green-400/20 via-blue-500/20 to-green-400/10 backdrop-blur-xl"
       aria-labelledby="hero-title"
     >
       <div className="max-w-7xl mx-auto space-y-8">

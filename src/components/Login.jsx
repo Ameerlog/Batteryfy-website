@@ -1,200 +1,22 @@
-// import { useState } from "react";
-// import {
-//   getAuth,
-//   RecaptchaVerifier,
-//   signInWithPhoneNumber,
-// } from "firebase/auth";
-// import { app } from "../firebase";
-// import { useNavigate, useLocation } from "react-router-dom";
-
-// const Login = () => {
-//   const auth = getAuth(app);
-//   const [phone, setPhone] = useState("");
-//   const [otp, setOtp] = useState("");
-//   const [confirmation, setConfirmation] = useState(null);
-
-//   const navigate = useNavigate();
-//   const location = useLocation();
-
-//   const sendOtp = async () => {
-//     if (!window.recaptchaVerifier) {
-//       window.recaptchaVerifier = new RecaptchaVerifier(
-//         auth,
-//         "recaptcha-container",
-//         {
-//           size: "invisible",
-//           callback: () => sendOtp(),
-//         }
-//       );
-//     }
-
-//     try {
-//       const result = await signInWithPhoneNumber(
-//         auth,
-//         phone,
-//         window.recaptchaVerifier
-//       );
-//       setConfirmation(result);
-//       alert("OTP sent!");
-//     } catch (err) {
-//       console.error(err);
-//       alert("Error sending OTP");
-//     }
-//   };
-
-//   const verifyOtp = async () => {
-//     try {
-//       await confirmation.confirm(otp);
-//       alert("Login success!");
-
-//       // 👇 Redirect to intended route or fallback to homepage
-//       const redirectTo = location.state?.from?.pathname || "/";
-//       navigate(redirectTo);
-//     } catch (err) {
-//       alert("Invalid OTP");
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white p-6">
-//       <h2 className="text-2xl font-bold mb-4">Login via Phone</h2>
-//       <input
-//         type="tel"
-//         placeholder="+91..."
-//         value={phone}
-//         onChange={(e) => setPhone(e.target.value)}
-//         className="p-2 border border-gray-700 rounded mb-4 text-black"
-//       />
-//       <button
-//         onClick={sendOtp}
-//         className="bg-green-600 text-white px-4 py-2 rounded mb-4"
-//       >
-//         Send OTP
-//       </button>
-
-//       {confirmation && (
-//         <>
-//           <input
-//             type="text"
-//             placeholder="Enter OTP"
-//             value={otp}
-//             onChange={(e) => setOtp(e.target.value)}
-//             className="p-2 border border-gray-700 rounded mb-4 text-black"
-//           />
-//           <button
-//             onClick={verifyOtp}
-//             className="bg-blue-600 text-white px-4 py-2 rounded"
-//           >
-//             Verify OTP
-//           </button>
-//         </>
-//       )}
-
-//       <div id="recaptcha-container"></div>
-//     </div>
-//   );
-// };
-
-// export default Login;
-
-// import React, { useState } from "react";
-// import { FaPhoneAlt } from "react-icons/fa";
-// import { FcGoogle } from "react-icons/fc";
-
-// export default function Login() {
-//   const [phoneNumber, setPhoneNumber] = useState("");
-
-//   const handlePhoneSubmit = (e) => {
-//     e.preventDefault();
-//     console.log("Phone number submitted:", phoneNumber);
-//   };
-
-//   const handleGoogleSignIn = () => {
-//     console.log("Google sign-in clicked");
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gray-900  flex items-center justify-center py-8 bg-gradient-to-br from-green-400/20 via-blue-500/20 to-green-400/10 backdrop-blur-xl">
-//       <div className="max-w-md w-full shadow-2xl p-4 rounded-2xl">
-//         {/* Header */}
-//         <div className="text-center mb-8">
-//           <h1 className="text-4xl font-bold  mb-4 text-white">Get Started</h1>
-//           <p className="text-white text-lg">
-//             Enter your phone number or use alternative method to get started.
-//           </p>
-//         </div>
-
-//         {/* Phone Number Section */}
-//         <div className="mb-6">
-//           <label className="block text-white text-sm font-medium mb-3">
-//             Phone Number
-//           </label>
-//           <div className="relative mb-4">
-//             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-//               <FaPhoneAlt className="h-4 w-4 text-gray-400" />
-//             </div>
-//             <input
-//               type="tel"
-//               value={phoneNumber}
-//               onChange={(e) => setPhoneNumber(e.target.value)}
-//               placeholder="Enter your phone number"
-//               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all duration-200 text-gray-900 placeholder-gray-500"
-//             />
-//           </div>
-//         </div>
-
-//         {/* Divider */}
-//         <div className="relative mb-6">
-//           <div className="absolute inset-0 flex items-center">
-//             <div className="w-full border-t border-gray-300"></div>
-//           </div>
-//           <div className="relative flex justify-center text-sm">
-//             <span className="px-2 bg-gradient-to-br from-green-400/20 via-blue-500/20 to-green-400/10 backdrop-blur-xl text-white">
-//               or
-//             </span>
-//           </div>
-//         </div>
-
-//         {/* Google Sign In */}
-//         <div className="mb-8">
-//           <button
-//             onClick={handleGoogleSignIn}
-//             className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg bg-white hover:bg-gray-50 transition-colors duration-200 focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none"
-//           >
-//             <FcGoogle className="h-7 w-7 mr-3" />
-//             <span className="font-medium">Google</span>
-//           </button>
-//         </div>
-
-//         {/* Next Button */}
-//         <button
-//           onClick={handlePhoneSubmit}
-//           className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 outline-none shadow-lg"
-//         >
-//           Next
-//         </button>
-
-//         {/* Additional spacing for better mobile experience */}
-//         <div className="mt-8 text-center">
-//           <p className="text-sm text-gray-200">
-//             By continuing, you agree to our Terms of Service and Privacy Policy.
-//           </p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-import React, { useState } from "react";
-// import { Phone } from "lucide-react";
+import { useState } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [phoneNumber, setPhoneNumber] = useState("");
+  const navigate = useNavigate();
 
   const handlePhoneSubmit = (e) => {
     e.preventDefault();
+    const indianPhoneRegex = /^[6-9]\d{9}$/;
+
+    if (!indianPhoneRegex.test(phoneNumber)) {
+      alert("Please enter a valid 10-digit Indian phone number.");
+      return;
+    }
+
     console.log("Phone number submitted:", phoneNumber);
+    navigate("/bank-system");
   };
 
   const handleGoogleSignIn = () => {
@@ -232,8 +54,6 @@ export default function Login() {
             />
           </div>
         </div>
-
-        {/* Divider */}
         <div className="relative mb-6">
           <div className="flex items-center">
             <div className="flex-1 border-t border-white/20"></div>
@@ -241,8 +61,6 @@ export default function Login() {
             <div className="flex-1 border-t border-white/20"></div>
           </div>
         </div>
-
-        {/* Google Sign In */}
         <div className="mb-8">
           <button
             onClick={handleGoogleSignIn}
@@ -273,16 +91,12 @@ export default function Login() {
             </span>
           </button>
         </div>
-
-        {/* Next Button */}
         <button
           onClick={handlePhoneSubmit}
-          className="w-full bg-gradient-to-r from-green-500/80 to-green-600/80 backdrop-blur-sm hover:from-green-500 hover:to-green-600 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 focus:ring-2 focus:ring-green-400/50 focus:ring-offset-2 focus:ring-offset-transparent outline-none shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] border border-green-400/30"
+          className="w-full bg-gradient-to-r from-green-500/80 to-green-600/80 backdrop-blur-sm hover:from-green-500 hover:to-green-600 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 focus:ring-2 focus:ring-green-400/50 focus:ring-offset-2 focus:ring-offset-transparent outline-none shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] border border-green-400/30 z-30"
         >
           Next
         </button>
-
-        {/* Additional spacing for better mobile experience */}
         <div className="mt-8 text-center">
           <p className="text-sm text-white/70 drop-shadow-sm">
             By continuing, you agree to our Terms of Service and Privacy Policy.

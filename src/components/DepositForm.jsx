@@ -1,0 +1,195 @@
+import { useState } from "react";
+import {
+  FaBatteryFull,
+  FaCar,
+  FaCheckCircle,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
+
+function DepositForm() {
+  const [vehicleModel, setVehicleModel] = useState("");
+  const [chargePercentage, setChargePercentage] = useState(50);
+  const [location, setLocation] = useState("");
+  const [depositedData, setDepositedData] = useState(null);
+
+  const evModels = [
+    "Tesla Model 3",
+    "Nissan Leaf",
+    "Chevrolet Bolt EV",
+    "Hyundai Kona Electric",
+    "Ford Mustang Mach-E",
+    "Porsche Taycan",
+    "Audi e-tron",
+    "Rivian R1T",
+    "Lucid Air",
+    "BMW i4",
+  ];
+
+  const locations = [
+    "San Francisco, CA",
+    "New York, NY",
+    "Austin, TX",
+    "Seattle, WA",
+    "Miami, FL",
+    "Chicago, IL",
+    "Denver, CO",
+    "Boston, MA",
+    "Los Angeles, CA",
+    "Portland, OR",
+  ];
+
+  const handleDeposit = (e) => {
+    e.preventDefault();
+    const data = {
+      vehicleModel,
+      chargePercentage,
+      location,
+      depositTime: new Date().toLocaleString(),
+    };
+    setDepositedData(data); 
+    console.log("Deposited Data:", data);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-950 bg-gradient-to-br from-green-400/20 via-blue-500/20 to-green-400/10 backdrop-blur-xl text-gray-100 font-sans antialiased flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full bg-gray-800/70 rounded-2xl shadow-2xl p-8 space-y-8 border border-gray-700 backdrop-blur-sm">
+        <div className="text-center">
+          <FaBatteryFull className="mx-auto h-16 w-16 text-green-400 mb-4" />
+          <h2 className="mt-6 text-3xl font-extrabold text-white">
+            Deposit Your EV Battery
+          </h2>
+          <p className="mt-2 text-sm text-gray-300">
+            Securely deposit your vehicle's excess charge to the grid.
+          </p>
+        </div>
+        <form className="mt-8 space-y-6" onSubmit={handleDeposit}>
+          <div>
+            <label
+              htmlFor="vehicle-model"
+              className="block text-sm font-medium text-gray-300 mb-2"
+            >
+              <FaCar className="inline-block mr-2" /> Vehicle Model
+            </label>
+            <select
+              id="vehicle-model"
+              name="vehicle-model"
+              required
+              className="appearance-none block w-full px-4 py-3 border border-gray-600 rounded-lg shadow-sm placeholder-gray-400
+                         bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm
+                         transition-colors duration-200"
+              value={vehicleModel}
+              onChange={(e) => setVehicleModel(e.target.value)}
+            >
+              <option value="" disabled>
+                Select your EV model
+              </option>
+              {evModels.map((model, index) => (
+                <option key={index} value={model}>
+                  {model}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label
+              htmlFor="charge-percentage"
+              className="block text-sm font-medium text-gray-300 mb-2"
+            >
+              <FaBatteryFull className="inline-block mr-2" /> Charge Percentage:{" "}
+              <span className="font-bold text-green-400">
+                {chargePercentage}%
+              </span>
+            </label>
+            <input
+              type="range"
+              id="charge-percentage"
+              name="charge-percentage"
+              min="0"
+              max="100"
+              value={chargePercentage}
+              onChange={(e) => setChargePercentage(parseInt(e.target.value))}
+              className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer
+                         [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-blue-500 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg
+                         [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-blue-500 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:shadow-lg"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="location"
+              className="block text-sm font-medium text-gray-300 mb-2"
+            >
+              <FaMapMarkerAlt className="inline-block mr-2" /> Location
+            </label>
+            <select
+              id="location"
+              name="location"
+              required
+              className="appearance-none block w-full px-4 py-3 border border-gray-600 rounded-lg shadow-sm placeholder-gray-400
+                         bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm
+                         transition-colors duration-200"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            >
+              <option value="" disabled>
+                Select your location
+              </option>
+              {locations.map((loc, index) => (
+                <option key={index} value={loc}>
+                  {loc}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Deposit Button */}
+          <div>
+            <button
+              type="submit"
+              className="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-semibold rounded-xl shadow-lg
+                         bg-green-600 hover:bg-green-700 text-white
+                         focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900
+                         transition-all duration-200 ease-in-out
+                         transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+            >
+              <FaCheckCircle className="mr-2 -ml-1 w-5 h-5" /> Deposit Battery
+            </button>
+          </div>
+        </form>
+        {depositedData && (
+          <div className="mt-8 p-4 bg-gray-700/50 rounded-lg border border-gray-600 text-sm text-gray-200 flex items-center space-x-4">
+            <div className="flex-shrink-0">
+              <FaBatteryFull className="w-10 h-10 text-green-400" />
+            </div>
+            <div className="flex-grow">
+              <h3 className="font-semibold text-white mb-1">
+                Last Deposited Details:
+              </h3>
+              <p>
+                <span className="font-medium text-gray-300">
+                  Vehicle Model:
+                </span>{" "}
+                {depositedData.vehicleModel}
+              </p>
+              <p>
+                <span className="font-medium text-gray-300">
+                  Charge Percentage:
+                </span>{" "}
+                {depositedData.chargePercentage}%
+              </p>
+              <p>
+                <span className="font-medium text-gray-300">Location:</span>{" "}
+                {depositedData.location}
+              </p>
+              <p>
+                <span className="font-medium text-gray-300">Deposit Time:</span>{" "}
+                {depositedData.depositTime}
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default DepositForm;

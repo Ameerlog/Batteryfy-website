@@ -25,9 +25,11 @@ export default function BatteryBank() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium mb-2 leading-tight capitalize ">
               Be the Change, Bank your Battery Today.
             </h2>
-            <div className="mb-8">
-              <Link to="/login">
-                <button className="my-2 px-[45px] py-[15px] text-white uppercase transition-all duration-500 bg-gradient-to-r from-[#3CA55C] via-[#B5AC49] to-[#3CA55C] bg-[length:200%_auto] bg-left hover:bg-right rounded-[10px] border-none">
+            <div className="relative z-50 mb-8">
+              <Link
+                to="/login"
+              >
+                <button className="my-2 px-[45px] py-[15px] text-white uppercase transition-all duration-500 bg-gradient-to-r from-[#3CA55C] via-[#B5AC49] to-[#3CA55C] bg-[length:200%_auto] bg-left hover:bg-right rounded-[10px] border-none cursor-pointer z-50">
                   Batteryfy Now
                 </button>
               </Link>

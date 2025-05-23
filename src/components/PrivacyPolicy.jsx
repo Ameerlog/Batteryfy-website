@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
   return (
     <div
       className="min-h-screen bg-gray-950 text-white px-6 py-12 bg-gradient-to-br from-green-400/20 via-blue-500/20 to-green-400/10 backdrop-blur-xl"
-      aria-labelledby="privacy-policy-title" // Accessibility: Label the section
+      aria-labelledby="privacy-policy-title"
     >
       <div className="max-w-5xl mx-auto">
         <h1
@@ -34,8 +34,6 @@ export default function PrivacyPolicy() {
           className="text-2xl font-semibold text-[#26C72D] mt-8 mb-2"
           id="section-1"
         >
-          {" "}
-          {/* Accessibility */}
           1. Information We Collect
         </h2>
         <p className="text-gray-300 mb-4">
@@ -48,8 +46,6 @@ export default function PrivacyPolicy() {
           className="text-2xl font-semibold text-[#26C72D] mt-8 mb-2"
           id="section-2"
         >
-          {" "}
-          {/* Accessibility */}
           2. How We Use Your Information
         </h2>
         <ul className="list-disc ml-6 text-gray-300 mb-4">
@@ -63,8 +59,6 @@ export default function PrivacyPolicy() {
           className="text-2xl font-semibold text-[#26C72D] mt-8 mb-2"
           id="section-3"
         >
-          {" "}
-          {/* Accessibility */}
           3. Data Sharing
         </h2>
         <p className="text-gray-300 mb-4">
@@ -77,8 +71,6 @@ export default function PrivacyPolicy() {
           className="text-2xl font-semibold text-[#26C72D] mt-8 mb-2"
           id="section-4"
         >
-          {" "}
-          {/* Accessibility */}
           4. Security
         </h2>
         <p className="text-gray-300 mb-4">
@@ -91,8 +83,6 @@ export default function PrivacyPolicy() {
           className="text-2xl font-semibold text-[#26C72D] mt-8 mb-2"
           id="section-5"
         >
-          {" "}
-          {/* Accessibility */}
           5. Cookies
         </h2>
         <p className="text-gray-300 mb-4">
@@ -105,8 +95,6 @@ export default function PrivacyPolicy() {
           className="text-2xl font-semibold text-[#26C72D] mt-8 mb-2"
           id="section-6"
         >
-          {" "}
-          {/* Accessibility */}
           6. Your Rights
         </h2>
         <p className="text-gray-300 mb-4">
@@ -119,8 +107,6 @@ export default function PrivacyPolicy() {
           className="text-2xl font-semibold text-[#26C72D] mt-8 mb-2"
           id="section-7"
         >
-          {" "}
-          {/* Accessibility */}
           7. Updates to This Policy
         </h2>
         <p className="text-gray-300 mb-4">

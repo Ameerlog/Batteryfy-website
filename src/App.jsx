@@ -43,6 +43,10 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import Login from "./components/Login";
+import BatteryfyBankSystem from "./components/BatteryfyBankSystem";
+import DepositForm from "./components/DepositForm";
+import WithdrawForm from "./components/WithdrawForm";
+import BorrowForm from "./components/BorrowForm";
 // import Login from "./components/Login";
 
 // Lazy load components
@@ -90,6 +94,10 @@ const App = () => {
           <Route path="/terms-and-conditions" element={<TermsConditions />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/bank-system" element={<BatteryfyBankSystem />} />
+          <Route path="/deposit" element={<DepositForm />} />
+          <Route path="/withdraw" element={<WithdrawForm />} />
+          <Route path="/borrow" element={<BorrowForm />} />
           <Route
             path="/sos-emergency"
             element={

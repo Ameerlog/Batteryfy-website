@@ -521,7 +521,7 @@ const HeroSection = () => {
       aria-labelledby="hero-title"
     >
       <div className="max-w-7xl mx-auto space-y-8">
-        <div className="text-center" aria-labelledby="hero-headline">
+        {/* <div className="text-center" aria-labelledby="hero-headline">
           <h1
             id="hero-headline"
             className="text-3xl sm:text-4xl font-bold text-white capitalize pt-2"
@@ -532,7 +532,7 @@ const HeroSection = () => {
           <p className="capitalize text-2xl bg-gradient-to-r from-blue-400 to-lime-500 bg-clip-text text-transparent p-4">
             India's Largest Batteryfying network.
           </p>
-        </div>
+        </div> */}
         <div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           aria-label="Vehicle conversion options"

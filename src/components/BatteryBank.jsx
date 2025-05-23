@@ -26,7 +26,7 @@ export default function BatteryBank() {
             </h2>
             <div className="mb-8">
               <button className="my-2 px-[45px] py-[15px] text-white uppercase transition-all duration-500 bg-gradient-to-r from-[#3CA55C] via-[#B5AC49] to-[#3CA55C] bg-[length:200%_auto] bg-left hover:bg-right rounded-[10px] border-none">
-                Open Now
+                Batteryfy Now
               </button>
             </div>
           </div>

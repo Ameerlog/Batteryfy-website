@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Batteryfy from "../assets/Batteryfy1.gif";
+import Batteryfy from "../assets/BatteryfyBank.gif";
 
 export default function BatteryBank() {
   return (
@@ -26,10 +26,8 @@ export default function BatteryBank() {
               Be the Change, Bank your Battery Today.
             </h2>
             <div className="relative z-50 mb-8">
-              <Link
-                to="/login"
-              >
-                <button className="my-2 px-[45px] py-[15px] text-white uppercase transition-all duration-500 bg-gradient-to-r from-[#3CA55C] via-[#B5AC49] to-[#3CA55C] bg-[length:200%_auto] bg-left hover:bg-right rounded-[10px] border-none cursor-pointer z-50">
+              <Link to="/login">
+                <button className="my-2 px-[45px] py-[15px] text-white transition-all duration-500 bg-gradient-to-r from-[#3CA55C] via-[#B5AC49] to-[#3CA55C] bg-[length:200%_auto] bg-left hover:bg-right rounded-[10px] border-none cursor-pointer z-50">
                   Batteryfy Now
                 </button>
               </Link>

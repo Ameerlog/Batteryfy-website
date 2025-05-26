@@ -62,10 +62,10 @@ const Footer = () => {
                   aria-hidden="true"
                 />
               </p>
-              <p
-                // href="https://www.instagram.com/batteryfy"
-                // target="_blank"
-                // rel="noopener noreferrer"
+              <a
+                href="https://www.instagram.com/batteryfy_official/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-gray-800 p-2 rounded-full hover:bg-gradient-to-br  from-blue-500 via-pink-500  to-yellow-500 transition-colors"
                 aria-label="Follow us on Instagram"
               >
@@ -73,7 +73,7 @@ const Footer = () => {
                   className="text-gray-400 hover:text-white"
                   aria-hidden="true"
                 />
-              </p>
+              </a>
               <p
                 // href="https://www.linkedin.com/company/batteryfy"
                 // target="_blank"
@@ -86,10 +86,10 @@ const Footer = () => {
                   aria-hidden="true"
                 />
               </p>
-              <p
-                // href="https://www.youtube.com/@batteryfy"
-                // target="_blank"
-                // rel="noopener noreferrer"
+              <a
+                href="https://www.youtube.com/@Batteryfy"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-gray-800 p-2 rounded-full hover:bg-red-700 transition-colors"
                 aria-label="Subscribe to our YouTube channel"
               >
@@ -97,7 +97,7 @@ const Footer = () => {
                   className="text-gray-400 hover:text-white"
                   aria-hidden="true"
                 />
-              </p>
+              </a>
             </div>
           </div>
 
@@ -123,7 +123,8 @@ const Footer = () => {
                   to="/ev-charging-stations"
                   className="hover:text-blue-400 transition-colors"
                 >
-                  EV Charging
+                  {/* EV Charging */}
+                  EV Power Trading Solutions
                 </Link>
               </li>
               <li>

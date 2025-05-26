@@ -30,7 +30,7 @@ function BatteryfyBankSystem() {
                                transition-all duration-200 ease-in-out
                                transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
               >
-                Withdraw Energy
+                Deposit Energy
                 <FaChevronRight className="ml-2 w-4 h-4" />
               </button>
             </Link>
@@ -42,14 +42,14 @@ function BatteryfyBankSystem() {
                                transition-all duration-200 ease-in-out
                                transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
               >
-                Deposit Energy
+                Withdraw Energy
                 <FaChevronRight className="ml-2 w-4 h-4" />
               </button>
             </Link>
             <Link to="/borrow">
               <button
-                className="inline-flex items-center justify-center px-7 py-3 border border-gray-600 text-base font-semibold rounded-xl shadow-sm
-                               text-gray-300 hover:bg-gray-800 hover:border-gray-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2
+                className="inline-flex items-center justify-center px-7 py-3 border border-gray-600 text-base font-semibold rounded-xl shadow-sm bg-green-600
+                               text-white hover:bg-green-700 hover:border-gray-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2
                                transition-all duration-200 ease-in-out
                                transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
               >
@@ -258,7 +258,7 @@ function BatteryfyBankSystem() {
                                transition-all duration-200 ease-in-out
                                transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
               >
-                Withdraw Energy
+                Deposit Energy
                 <FaChevronRight className="ml-2 w-4 h-4" />
               </button>
             </Link>
@@ -270,14 +270,14 @@ function BatteryfyBankSystem() {
                                transition-all duration-200 ease-in-out
                                transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
               >
-                Deposit Energy
+                Withdraw Energy
                 <FaChevronRight className="ml-2 w-4 h-4" />
               </button>
             </Link>
             <Link to="/borrow">
               <button
-                className="inline-flex items-center justify-center px-7 py-3 border border-gray-600 text-base font-semibold rounded-xl shadow-sm
-                               text-gray-300 hover:bg-gray-800 hover:border-gray-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2
+                className="inline-flex items-center justify-center px-7 py-3 border border-gray-600 text-base font-semibold rounded-xl shadow-sm bg-green-600
+                               text-white hover:bg-green-700 hover:border-gray-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2
                                transition-all duration-200 ease-in-out
                                transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
               >

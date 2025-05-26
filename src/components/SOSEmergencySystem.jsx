@@ -11,6 +11,9 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
+import { db } from "../firebase";
+import { collection, addDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export default function SOSEmergencySystem() {
   const [showForm, setShowForm] = useState(false);
@@ -18,57 +21,95 @@ export default function SOSEmergencySystem() {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [serviceType, setServiceType] = useState("");
-  const [sosSent, setSosSent] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [isButtonHovered, setIsButtonHovered] = useState(false);
-  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
-  useEffect(() => {
-    if (location && !mapLoaded) {
-      setMapLoaded(true);
-    }
-    if (showForm) {
-      navigate("/");
-    }
-  }, [location, showForm]);
-
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+  useEffect(() => {
+    if (location && !mapLoaded) {
+      setMapLoaded(true);
+    }
+  }, [location, mapLoaded, showForm, navigate]);
 
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
+      toast.info("Attempting to get your location...");
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setLocation({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
+          toast.success("Location acquired successfully!");
         },
         (err) => {
-          setError(err.message);
-        }
+          let errorMessage = "Failed to get location.";
+          if (err.code === 1) {
+            errorMessage =
+              "Location access denied. Please enable location services for this site.";
+          } else if (err.code === 2) {
+            errorMessage = "Location unavailable. Please check your network.";
+          }
+          toast.error(errorMessage);
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
       );
     } else {
-      setError("Geolocation is not supported by this browser.");
+      toast.error("Geolocation is not supported by your browser.");
     }
   };
 
-  const handleSendSOS = () => {
-    if (location && name.trim() && mobile.trim() && serviceType) {
-      setSosSent(true);
-      setTimeout(() => {
-        setSosSent(false);
-        setShowForm(false);
-        setName("");
-        setMobile("");
-        setServiceType("");
-        setLocation(null);
-        setMapLoaded(false);
-      }, 5000);
+  const handleSendSOS = async () => {
+    if (!location) {
+      toast.error("Please get your current location first.");
+      return;
+    }
+    if (!name.trim()) {
+      toast.error("Please enter your name.");
+      return;
+    }
+    if (!mobile.trim()) {
+      toast.error("Please enter your mobile number.");
+      return;
+    }
+    if (!/^\d{10}$/.test(mobile.trim())) {
+      toast.error("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+    if (!serviceType) {
+      toast.error("Please select the type of service needed.");
+      return;
+    }
+
+    try {
+      await toast.promise(
+        addDoc(collection(db, "sosRequests"), {
+          name: name.trim(),
+          mobile: `+91${mobile.trim()}`,
+          serviceType: serviceType,
+          location: {
+            latitude: location.latitude,
+            longitude: location.longitude,
+          },
+          timestamp: new Date().toISOString(),
+        }),
+        {
+          pending: "Sending SOS request...",
+          success: "SOS request sent successfully! Help is on the way.",
+          error: "Failed to send SOS request. Please try again.",
+        }
+      );
+      setName("");
+      setMobile("");
+      setServiceType("");
+      setLocation(null);
+    } catch (e) {
+      console.error("Error saving SOS request:", e);
     }
   };
 
@@ -82,31 +123,13 @@ export default function SOSEmergencySystem() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 p-4">
-      {/* {!showForm ? (
-        <div className="relative">
-          <button
-            onClick={() => setShowForm(true)}
-            onMouseEnter={() => setIsButtonHovered(true)}
-            onMouseLeave={() => setIsButtonHovered(false)}
-            className="relative rounded-full w-28 h-28 bg-gradient-to-br from-red-500 to-red-700 text-white font-bold flex flex-col items-center justify-center shadow-2xl transform transition-transform duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-red-400 border-4 border-white"
-            style={{ boxShadow: "0 10px 25px -5px rgba(239, 68, 68, 0.5)" }}
-          >
-            <span className="text-xl mt-1 tracking-wider text-center font-bold">
-              SOS
-            </span>
-            <span className="absolute inset-0 rounded-full bg-red-600 animate-ping opacity-30"></span>
-            <span
-              className="absolute -inset-2 rounded-full border-2 border-red-500 animate-ping opacity-40"
-              style={{ animationDuration: "3s" }}
-            ></span>
-          </button>
-        </div>
-      ) : ( */}
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-gray-100">
-        {/* Header */}
         <div className="bg-gradient-to-r from-red-600 to-red-700 p-6 text-center relative text-white">
           <button
-            onClick={() => setShowForm(true)}
+            onClick={() => {
+              navigate("/");
+              toast.info("SOS form closed.");
+            }}
             className="absolute top-4 right-4 hover:text-red-200 focus:outline-none"
           >
             <FaTimes className="w-6 h-6" />
@@ -123,7 +146,6 @@ export default function SOSEmergencySystem() {
           </p>
         </div>
 
-        {/* Form */}
         <div className="px-6 py-6 bg-gradient-to-b from-white to-gray-50">
           <button
             onClick={getCurrentLocation}
@@ -131,7 +153,9 @@ export default function SOSEmergencySystem() {
             className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-lg flex items-center justify-center gap-2 mb-5 shadow-md hover:shadow-lg disabled:opacity-70 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             <FaMapMarkerAlt />
-            <span>Get My Current Location</span>
+            <span>
+              {location ? "Location Acquired" : "Get My Current Location"}
+            </span>
           </button>
 
           {location && (
@@ -142,12 +166,12 @@ export default function SOSEmergencySystem() {
               <div>
                 <p className="font-semibold">Location Acquired</p>
                 <p className="text-sm">
-                  Lat: {location.latitude}, Lng: {location.longitude}
+                  Lat: {location.latitude.toFixed(4)}, Lng:{" "}
+                  {location.longitude.toFixed(4)}
                 </p>
               </div>
             </div>
           )}
-
           {location && (
             <div className="mb-6 rounded-lg overflow-hidden shadow-md">
               <div className="bg-gray-200 h-48 w-full flex items-center justify-center">
@@ -159,14 +183,14 @@ export default function SOSEmergencySystem() {
                     Your Current Location
                   </p>
                   <p className="text-gray-600 text-sm">
-                    Lat: {location.latitude}, Lng: {location.longitude}
+                    Lat: {location.latitude.toFixed(4)}, Lng:{" "}
+                    {location.longitude.toFixed(4)}
                   </p>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Name Input */}
           <div className="space-y-4 md:space-y-5">
             <div>
               <label className="flex items-center gap-2 mb-2 text-gray-700 font-medium">
@@ -187,7 +211,6 @@ export default function SOSEmergencySystem() {
               </div>
             </div>
 
-            {/* Mobile Input */}
             <div>
               <label className="flex items-center gap-2 mb-2 text-gray-700 font-medium">
                 <FaPhone className="text-gray-500" />
@@ -198,8 +221,9 @@ export default function SOSEmergencySystem() {
                   type="tel"
                   value={mobile}
                   onChange={(e) => setMobile(e.target.value)}
-                  placeholder="e.g., +91 12345 67890"
+                  placeholder="e.g., 1234567890"
                   className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"
+                  maxLength="10"
                 />
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                   <FaPhone />
@@ -207,7 +231,6 @@ export default function SOSEmergencySystem() {
               </div>
             </div>
 
-            {/* Service Type Dropdown */}
             <div>
               <label className="flex items-center gap-2 mb-2 text-gray-700 font-medium">
                 <FaTools className="text-gray-500" />
@@ -236,7 +259,6 @@ export default function SOSEmergencySystem() {
             </div>
           </div>
 
-          {/* SOS Button */}
           <div className="mt-6 md:mt-8">
             <button
               onClick={handleSendSOS}
@@ -250,38 +272,15 @@ export default function SOSEmergencySystem() {
               }`}
             >
               <FaShieldAlt />
-              {sosSent ? "REQUEST SENT!" : "SEND SOS NOW"}
+              SEND SOS NOW
             </button>
 
-            {!sosSent && (
-              <p className="text-gray-600 text-center text-sm mt-4">
-                Help will be dispatched to your current geographical
-                coordinates.
-              </p>
-            )}
-
-            {sosSent && (
-              <div className="bg-green-50 border border-green-200 text-green-800 py-4 px-5 rounded-lg mt-5 text-center shadow-md">
-                <div className="flex justify-center mb-2">
-                  <div className="bg-green-100 p-2 rounded-full">
-                    <FaCheck className="text-green-600" />
-                  </div>
-                </div>
-                <p className="font-bold text-lg">Emergency alert sent!</p>
-                <p>
-                  Our service team has been notified and help is on the way.
-                </p>
-                <p className="text-sm mt-2 text-green-700">
-                  You will receive a confirmation on your mobile shortly.
-                </p>
-              </div>
-            )}
-
-            {error && <p className="text-red-600 text-center mt-4">{error}</p>}
+            <p className="text-gray-600 text-center text-sm mt-4">
+              Help will be dispatched to your current geographical coordinates.
+            </p>
           </div>
         </div>
       </div>
-      {/* )} */}
     </div>
   );
 }

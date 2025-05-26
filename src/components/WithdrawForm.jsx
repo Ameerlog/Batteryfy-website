@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaCarBattery,
   FaIdCard,
   FaListAlt,
   FaMinusCircle,
 } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function WithdrawForm() {
   const [vehicleIdToWithdraw, setVehicleIdToWithdraw] = useState("");
-  const [withdrawalStatus, setWithdrawalStatus] = useState(null);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const [recentDepositedVehicles, setRecentDepositedVehicles] = useState([
     {
@@ -36,40 +42,40 @@ function WithdrawForm() {
 
   const handleWithdraw = (e) => {
     e.preventDefault();
-    if (!vehicleIdToWithdraw) {
-      setWithdrawalStatus({
-        success: false,
-        message: "Please enter a Vehicle ID.",
-      });
+
+    if (!vehicleIdToWithdraw.trim()) {
+      toast.error("Please enter a Vehicle ID.");
       return;
     }
+    const withdrawalPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const foundVehicleIndex = recentDepositedVehicles.findIndex(
+          (vehicle) => vehicle.id === vehicleIdToWithdraw.trim().toUpperCase()
+        );
 
-    const foundVehicleIndex = recentDepositedVehicles.findIndex(
-      (vehicle) => vehicle.id === vehicleIdToWithdraw
-    );
+        if (foundVehicleIndex !== -1) {
+          const foundVehicle = recentDepositedVehicles[foundVehicleIndex];
+          const updatedVehicles = recentDepositedVehicles.filter(
+            (vehicle) => vehicle.id !== vehicleIdToWithdraw.trim().toUpperCase()
+          );
+          setRecentDepositedVehicles(updatedVehicles);
+          setVehicleIdToWithdraw(""); 
+          resolve(
+            `Withdrawal initiated for Vehicle ID: ${foundVehicle.id} (${foundVehicle.vehicleModel}).`
+          );
+        } else {
+          reject(
+            `Vehicle ID: "${vehicleIdToWithdraw}" not found in recent deposits.`
+          );
+        }
+      }, 1500);
+    });
 
-    if (foundVehicleIndex !== -1) {
-      const foundVehicle = recentDepositedVehicles[foundVehicleIndex];
-      setWithdrawalStatus({
-        success: true,
-        message: `Withdrawal initiated for Vehicle ID: ${vehicleIdToWithdraw} (${foundVehicle.vehicleModel}).`,
-        details: foundVehicle,
-      });
-      const updatedVehicles = recentDepositedVehicles.filter(
-        (vehicle) => vehicle.id !== vehicleIdToWithdraw
-      );
-      setRecentDepositedVehicles(updatedVehicles);
-
-      setVehicleIdToWithdraw("");
-      console.log(
-        `Attempting to withdraw vehicle with ID: ${vehicleIdToWithdraw}`
-      );
-    } else {
-      setWithdrawalStatus({
-        success: false,
-        message: `Vehicle ID: ${vehicleIdToWithdraw} not found in recent deposits.`,
-      });
-    }
+    toast.promise(withdrawalPromise, {
+      pending: "Processing withdrawal...",
+      success: (message) => message,
+      error: (error) => error, 
+    });
   };
 
   return (
@@ -101,8 +107,8 @@ function WithdrawForm() {
               name="vehicle-id"
               required
               className="appearance-none block w-full px-4 py-3 border border-gray-600 rounded-lg shadow-sm placeholder-gray-400
-                         bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm
-                         transition-colors duration-200"
+                          bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm
+                          transition-colors duration-200"
               placeholder="e.g., EVB-001"
               value={vehicleIdToWithdraw}
               onChange={(e) => setVehicleIdToWithdraw(e.target.value)}
@@ -114,35 +120,15 @@ function WithdrawForm() {
             <button
               type="submit"
               className="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-semibold rounded-xl shadow-lg
-                         bg-blue-600 hover:bg-blue-700 text-white
-                         focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900
-                         transition-all duration-200 ease-in-out
-                         transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+                          bg-blue-600 hover:bg-blue-700 text-white
+                          focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900
+                          transition-all duration-200 ease-in-out
+                          transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
             >
               <FaMinusCircle className="mr-2 -ml-1 w-5 h-5" /> Withdraw Battery
             </button>
           </div>
         </form>
-
-        {/* Withdrawal Status Display */}
-        {withdrawalStatus && (
-          <div
-            className={`mt-4 p-4 rounded-lg border ${
-              withdrawalStatus.success
-                ? "bg-green-700/50 border-green-600"
-                : "bg-red-700/50 border-red-600"
-            } text-sm text-gray-100`}
-          >
-            <p className="font-semibold">{withdrawalStatus.message}</p>
-            {withdrawalStatus.details && (
-              <div className="mt-2 text-xs text-gray-200">
-                <p>Model: {withdrawalStatus.details.vehicleModel}</p>
-                <p>Charge: {withdrawalStatus.details.chargePercentage}%</p>
-                <p>Location: {withdrawalStatus.details.location}</p>
-              </div>
-            )}
-          </div>
-        )}
 
         {/* Recent Deposited Vehicles Section */}
         <div className="mt-8 pt-6 border-t border-gray-700">

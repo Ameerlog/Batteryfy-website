@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
-import { useState } from "react";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import Product1 from "../assets/11.png";
-import Product2 from "../assets/13.png";
-import Product3 from "../assets/5.png";
 import Product4 from "../assets/12.png";
+import Product2 from "../assets/13.png";
 import Product5 from "../assets/3.png";
+import Product3 from "../assets/5.png";
 import Product6 from "../assets/7.png";
 import Product7 from "../assets/9.png";
 
@@ -21,11 +21,9 @@ const dummyProducts = [
     desc: "Rechargeable LED lamp powered by solar energy. Ideal for outdoor and indoor use.",
     image: Product1,
     variants: [
-      { type: "Incandescent Lamp", price: 6000 },
-      { type: "Halogen Lamp", price: 300 },
-      { type: "LED Lamp", price: 500 },
-      { type: "Table Lamp", price: 799 },
-      { type: "Hanging Lantern", price: 999 },
+      { type: "	1.4 – 2.4 kW", price: 6000 },
+      { type: "3.3 – 22 kW", price: 7000 },
+      { type: "25 – 350 kW (DC)", price: 9000 },
     ],
   },
   {
@@ -35,9 +33,9 @@ const dummyProducts = [
     image: Product2,
     variants: [
       { type: "Low-Speed E-Bikes", price: 12000 },
-      { type: "Hybrid E-Bikes", price: 45000 },
-      { type: "City Commuter", price: 51999 },
-      { type: "Mountain Terrain", price: 54999 },
+      { type: "Hybrid E-Bikes", price: 20000 },
+      { type: "City Commuter", price: 31999 },
+      { type: "Mountain Terrain", price: 44999 },
     ],
   },
   {
@@ -47,9 +45,9 @@ const dummyProducts = [
     image: Product3,
     variants: [
       { type: "Commuter", price: 22000 },
-      { type: "SportsBike", price: 98900 },
-      { type: "Cruiser", price: 125900 },
-      { type: "Adventure", price: 194900 },
+      { type: "SportsBike", price: 28900 },
+      { type: "Cruiser", price: 38900 },
+      { type: "Adventure", price: 64900 },
     ],
   },
   {
@@ -59,7 +57,7 @@ const dummyProducts = [
     image: Product4,
     variants: [
       { type: "Cargo", price: 149000 },
-      { type: "Mobility", price: 125000 },
+      { type: "Mobility", price: 152000 },
       { type: "Folding", price: 132000 },
       { type: "Passenger", price: 179000 },
     ],
@@ -132,7 +130,7 @@ const Products = () => {
           </span>
         </div>
         <h2 id="products-section-title" className="text-4xl font-bold mb-4">
-          Batteryfy <span className="text-white">Lifestyle</span>
+          Batteryfy <span className="text-white">Life</span>
         </h2>
         <Link to="/" aria-label="Go to the Batteryfy shop">
           <button className="relative border-2 border-green-500 hover:text-green-400 text-white px-6 py-2 rounded-full font-semibold overflow-hidden text-sm">

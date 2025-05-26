@@ -1,16 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaBatteryFull,
   FaCar,
   FaCheckCircle,
   FaMapMarkerAlt,
 } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function DepositForm() {
   const [vehicleModel, setVehicleModel] = useState("");
   const [chargePercentage, setChargePercentage] = useState(50);
   const [location, setLocation] = useState("");
-  const [depositedData, setDepositedData] = useState(null);
+  const [depositedData, setDepositedData] = useState(null); 
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const evModels = [
     "Tesla Model 3",
@@ -40,14 +48,44 @@ function DepositForm() {
 
   const handleDeposit = (e) => {
     e.preventDefault();
-    const data = {
-      vehicleModel,
-      chargePercentage,
-      location,
-      depositTime: new Date().toLocaleString(),
-    };
-    setDepositedData(data); 
-    console.log("Deposited Data:", data);
+
+    if (!vehicleModel || !location || chargePercentage === 0) {
+      toast.error("Please fill out all deposit details accurately.");
+      return;
+    }
+
+    const depositPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const newDeposit = {
+          vehicleModel,
+          chargePercentage,
+          location,
+          depositTime: new Date().toLocaleString(),
+          // In a real app, you'd get an ID from the backend
+          id: `DEP-${Date.now().toString().slice(-5)}`,
+        };
+
+        const success = Math.random() > 0.1;
+
+        if (success) {
+          setDepositedData(newDeposit);
+          setVehicleModel("");
+          setChargePercentage(50);
+          setLocation("");
+          resolve(
+            `Successfully deposited ${newDeposit.chargePercentage}% charge from your ${newDeposit.vehicleModel}.`
+          );
+        } else {
+          reject("Failed to deposit battery charge. Please try again.");
+        }
+      }, 1500); 
+    });
+
+    toast.promise(depositPromise, {
+      pending: "Depositing your battery charge...",
+      success: (message) => message,
+      error: (error) => error,
+    });
   };
 
   return (
@@ -75,8 +113,8 @@ function DepositForm() {
               name="vehicle-model"
               required
               className="appearance-none block w-full px-4 py-3 border border-gray-600 rounded-lg shadow-sm placeholder-gray-400
-                         bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm
-                         transition-colors duration-200"
+                          bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm
+                          transition-colors duration-200"
               value={vehicleModel}
               onChange={(e) => setVehicleModel(e.target.value)}
             >
@@ -109,8 +147,8 @@ function DepositForm() {
               value={chargePercentage}
               onChange={(e) => setChargePercentage(parseInt(e.target.value))}
               className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer
-                         [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-blue-500 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg
-                         [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-blue-500 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:shadow-lg"
+                          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-blue-500 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg
+                          [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-blue-500 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:shadow-lg"
             />
           </div>
           <div>
@@ -125,8 +163,8 @@ function DepositForm() {
               name="location"
               required
               className="appearance-none block w-full px-4 py-3 border border-gray-600 rounded-lg shadow-sm placeholder-gray-400
-                         bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm
-                         transition-colors duration-200"
+                          bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm
+                          transition-colors duration-200"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
             >
@@ -146,10 +184,10 @@ function DepositForm() {
             <button
               type="submit"
               className="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-semibold rounded-xl shadow-lg
-                         bg-green-600 hover:bg-green-700 text-white
-                         focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900
-                         transition-all duration-200 ease-in-out
-                         transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+                          bg-green-600 hover:bg-green-700 text-white
+                          focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900
+                          transition-all duration-200 ease-in-out
+                          transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
             >
               <FaCheckCircle className="mr-2 -ml-1 w-5 h-5" /> Deposit Battery
             </button>

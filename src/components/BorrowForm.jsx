@@ -1,20 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaBatteryHalf,
   FaCar,
   FaChargingStation,
   FaListAlt,
   FaMapMarkerAlt,
-  FaSearch
+  FaSearch,
 } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function BorrowForm() {
   const [yourVehicleModel, setYourVehicleModel] = useState("");
-  const [currentChargingLevel, setCurrentChargingLevel] = useState(50); 
+  const [currentChargingLevel, setCurrentChargingLevel] = useState(50);
   const [yourLocation, setYourLocation] = useState("");
 
   const [availableBatteries, setAvailableBatteries] = useState([]);
-  const [borrowingStatus, setBorrowingStatus] = useState(null); 
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const evModels = [
     "Tesla Model 3",
@@ -100,47 +107,69 @@ function BorrowForm() {
       owner: "Heidi",
     },
   ];
+
   const handleFindAvailable = (e) => {
     e.preventDefault();
-    setBorrowingStatus(null);
 
     if (!yourVehicleModel || !yourLocation) {
-      setBorrowingStatus({
-        success: false,
-        message: "Please select your vehicle model and location.",
-      });
+      toast.error("Please select your vehicle model and location.");
       setAvailableBatteries([]);
       return;
     }
-    const foundBatteries = mockAllAvailableBatteries.filter(
-      (battery) =>
-        battery.model === yourVehicleModel &&
-        battery.location === yourLocation &&
-        battery.charge > currentChargingLevel
-    );
+    const findBatteriesPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const foundBatteries = mockAllAvailableBatteries.filter(
+          (battery) =>
+            battery.model === yourVehicleModel &&
+            battery.location === yourLocation &&
+            battery.charge > currentChargingLevel
+        );
 
-    if (foundBatteries.length > 0) {
-      setAvailableBatteries(foundBatteries);
-      setBorrowingStatus({
-        success: true,
-        message: `Found ${foundBatteries.length} available batteries for your ${yourVehicleModel}.`,
-      });
-    } else {
-      setAvailableBatteries([]);
-      setBorrowingStatus({
-        success: false,
-        message: "No matching batteries found. Try adjusting your criteria.",
-      });
-    }
+        if (foundBatteries.length > 0) {
+          setAvailableBatteries(foundBatteries);
+          resolve(
+            `Found ${foundBatteries.length} available batteries for your ${yourVehicleModel}.`
+          );
+        } else {
+          setAvailableBatteries([]);
+          reject("No matching batteries found. Try adjusting your criteria.");
+        }
+      }, 1000);
+    });
+
+    toast.promise(findBatteriesPromise, {
+      pending: "Searching for available batteries...",
+      success: (message) => message,
+      error: (error) => error,
+    });
   };
 
   const handleBorrowBattery = (batteryId) => {
-    setBorrowingStatus({
-      success: true,
-      message: `Battery with ID ${batteryId} borrowed successfully!`,
+    const borrowPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const batteryToBorrow = availableBatteries.find(
+          (b) => b.id === batteryId
+        );
+        if (batteryToBorrow) {
+          setAvailableBatteries((prev) =>
+            prev.filter((b) => b.id !== batteryId)
+          );
+          resolve(
+            `Battery with ID ${batteryId} (${batteryToBorrow.model}) borrowed successfully!`
+          );
+        } else {
+          reject(
+            `Failed to borrow battery with ID ${batteryId}. It might no longer be available.`
+          );
+        }
+      }, 800);
     });
-    console.log(`Battery with ID ${batteryId} selected for borrowing.`);
-    setAvailableBatteries((prev) => prev.filter((b) => b.id !== batteryId));
+
+    toast.promise(borrowPromise, {
+      pending: `Attempting to borrow battery ${batteryId}...`,
+      success: (message) => message,
+      error: (error) => error,
+    });
   };
 
   return (
@@ -169,8 +198,8 @@ function BorrowForm() {
               name="your-vehicle-model"
               required
               className="appearance-none block w-full px-4 py-3 border border-gray-600 rounded-lg shadow-sm placeholder-gray-400
-                         bg-gray-700 text-white focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm
-                         transition-colors duration-200"
+                          bg-gray-700 text-white focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm
+                          transition-colors duration-200"
               value={yourVehicleModel}
               onChange={(e) => setYourVehicleModel(e.target.value)}
             >
@@ -206,8 +235,8 @@ function BorrowForm() {
                 setCurrentChargingLevel(parseInt(e.target.value))
               }
               className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer
-                         [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-purple-500 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg
-                         [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-purple-500 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:shadow-lg"
+                          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-purple-500 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg
+                          [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-purple-500 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:shadow-lg"
             />
           </div>
           <div>
@@ -222,8 +251,8 @@ function BorrowForm() {
               name="your-location"
               required
               className="appearance-none block w-full px-4 py-3 border border-gray-600 rounded-lg shadow-sm placeholder-gray-400
-                         bg-gray-700 text-white focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm
-                         transition-colors duration-200"
+                          bg-gray-700 text-white focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm
+                          transition-colors duration-200"
               value={yourLocation}
               onChange={(e) => setYourLocation(e.target.value)}
             >
@@ -241,27 +270,17 @@ function BorrowForm() {
             <button
               type="submit"
               className="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-semibold rounded-xl shadow-lg
-                         bg-purple-600 hover:bg-purple-700 text-white
-                         focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900
-                         transition-all duration-200 ease-in-out
-                         transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+                          bg-purple-600 hover:bg-purple-700 text-white
+                          focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900
+                          transition-all duration-200 ease-in-out
+                          transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
             >
               <FaSearch className="mr-2 -ml-1 w-5 h-5" /> Find Available
               Batteries
             </button>
           </div>
         </form>
-        {borrowingStatus && (
-          <div
-            className={`mt-4 p-4 rounded-lg border ${
-              borrowingStatus.success
-                ? "bg-green-700/50 border-green-600"
-                : "bg-red-700/50 border-red-600"
-            } text-sm text-gray-100`}
-          >
-            <p className="font-semibold">{borrowingStatus.message}</p>
-          </div>
-        )}
+
         {availableBatteries.length > 0 && (
           <div className="mt-8 pt-6 border-t border-gray-700">
             <h3 className="text-xl font-extrabold text-white mb-4 flex items-center">
@@ -272,7 +291,6 @@ function BorrowForm() {
                 <div
                   key={battery.id}
                   className="p-4 bg-gray-700/50 rounded-lg border border-gray-600 text-sm text-gray-200 flex items-center space-x-4 cursor-pointer hover:bg-gray-600/50 transition-colors duration-200"
-                  onClick={() => handleBorrowBattery(battery.id)}
                 >
                   <div className="flex-shrink-0">
                     <FaBatteryHalf className="w-10 h-10 text-purple-400" />
@@ -301,7 +319,10 @@ function BorrowForm() {
                       {battery.owner}
                     </p>
                   </div>
-                  <button className="flex-shrink-0 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-md transition-colors duration-200">
+                  <button
+                    onClick={() => handleBorrowBattery(battery.id)} 
+                    className="flex-shrink-0 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-md transition-colors duration-200"
+                  >
                     Borrow
                   </button>
                 </div>

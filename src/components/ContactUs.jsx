@@ -12,6 +12,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FiMapPin } from "react-icons/fi";
 import { IoIosMail } from "react-icons/io";
 import { useLocation } from "react-router-dom";
+import ContactForm from "./ContactForm";
 
 const ContactUs = () => {
   const { pathname } = useLocation();
@@ -70,7 +71,7 @@ const ContactUs = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-start">
             {/* Contact Information Card */}
             <div
-              className="bg-white/5 backdrop-blur-md rounded-xl p-6 shadow-lg border border-white/10"
+              className="bg-white/5 backdrop-blur-md rounded-xl p-6 shadow-lg border border-white/10 col-span-1 md:col-span-2 lg:col-span-1"
               aria-labelledby="contact-info-heading"
             >
               <h3
@@ -195,7 +196,8 @@ const ContactUs = () => {
                   Three primary verticals:
                   <ul className="list-disc list-inside ml-5">
                     <li>Retrofitting old vehicles into EVs</li>
-                    <li>EV Charging Stations with online booking</li>
+                    {/* <li>EV Charging Stations with online booking</li> */}
+                    <li>EV Power Trading Solutions with online booking</li>
                     <li>Battery-Operated Product Store</li>
                   </ul>
                 </li>
@@ -223,7 +225,7 @@ const ContactUs = () => {
                 Please fill out the form below or reach out to us via the
                 contact information provided.
               </p>
-              <div className="space-y-4">
+              {/* <div className="space-y-4">
                 <div>
                   <label
                     htmlFor="name"
@@ -276,7 +278,8 @@ const ContactUs = () => {
                 >
                   Send Message
                 </button>
-              </div>
+              </div> */}
+              <ContactForm />
             </div>
           </div>
 

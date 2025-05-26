@@ -72,7 +72,7 @@ const AboutUs = () => {
                 aria-hidden="true"
               />
               <h3 className="text-xl font-semibold text-white mb-1">
-                Charging Stations
+                EV Power Trading Solutions
               </h3>
               <p className="text-sm text-gray-300">
                 Book EV charging slots across cities with our smart station

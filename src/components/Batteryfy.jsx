@@ -2,7 +2,7 @@ import { FaArrowRight, FaCheck, FaStore } from "react-icons/fa";
 import { MdEvStation } from "react-icons/md";
 import { TbBatteryAutomotiveFilled } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import BatteryProduct from "../assets/image7.webp";
+import BatteryProduct from "../assets/BatteryProduct.webp";
 import Retrofit from "../assets/Retrofit.webp";
 import ChargingStation from "../assets/chargingStation.webp";
 
@@ -70,7 +70,7 @@ const Batteryfy = () => {
           </div>
         </div>
 
-        {/* EV Charging Stations */}
+        {/* EV Power Trading Solutions */}
         <div className="bg-white bg-opacity-5 rounded-lg p-6 flex flex-col shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
           <div className="mb-4">
             <div className="bg-gray-800 w-16 h-16 rounded-lg flex items-center justify-center">
@@ -80,7 +80,7 @@ const Batteryfy = () => {
               />
             </div>
           </div>
-          <h2 className="text-xl font-bold mb-4">EV Charging Stations</h2>
+          <h2 className="text-xl font-bold mb-4">EV Power Trading Solutions</h2>
           <div className="rounded-lg overflow-hidden">
             <img
               src={ChargingStation}

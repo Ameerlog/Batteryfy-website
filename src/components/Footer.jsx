@@ -4,7 +4,6 @@ import {
   FaLinkedinIn,
   FaYoutube,
 } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.webp";
 
@@ -50,7 +49,7 @@ const Footer = () => {
                   aria-hidden="true"
                 />
               </a>
-              <p
+              {/* <p
                 // href="https://twitter.com/batteryfy"
                 // target="_blank"
                 // rel="noopener noreferrer"
@@ -61,7 +60,7 @@ const Footer = () => {
                   className="text-gray-400 hover:text-white"
                   aria-hidden="true"
                 />
-              </p>
+              </p> */}
               <a
                 href="https://www.instagram.com/batteryfy_official/"
                 target="_blank"

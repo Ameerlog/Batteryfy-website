@@ -38,10 +38,10 @@ const Footer = () => {
               className="flex mt-6 space-x-3"
               aria-label="Social media links"
             >
-              <p
-                // href="https://www.facebook.com/batteryfy"
-                // target="_blank"
-                // rel="noopener noreferrer"
+              <a
+                href="https://www.facebook.com/profile.php?id=61576253405425"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-gray-800 p-2 rounded-full transition-colors hover:bg-blue-800"
                 aria-label="Follow us on Facebook"
               >
@@ -49,7 +49,7 @@ const Footer = () => {
                   className="text-gray-400 hover:text-white"
                   aria-hidden="true"
                 />
-              </p>
+              </a>
               <p
                 // href="https://twitter.com/batteryfy"
                 // target="_blank"
@@ -74,10 +74,10 @@ const Footer = () => {
                   aria-hidden="true"
                 />
               </a>
-              <p
-                // href="https://www.linkedin.com/company/batteryfy"
-                // target="_blank"
-                // rel="noopener noreferrer"
+              <a
+                href="https://www.linkedin.com/company/batteryfy/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-gray-800 p-2 rounded-full transition-colors hover:bg-blue-700"
                 aria-label="Connect with us on LinkedIn"
               >
@@ -85,7 +85,7 @@ const Footer = () => {
                   className="text-gray-400 hover:text-white"
                   aria-hidden="true"
                 />
-              </p>
+              </a>
               <a
                 href="https://www.youtube.com/@Batteryfy"
                 target="_blank"
